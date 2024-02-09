@@ -15,7 +15,7 @@ class DAY2SKIPPING
             {
                 System.out.println("invalid input");
             }
-            else if(m<=n || k>=n || n<=m)
+            else if(m>=n || k>=n || n<=m)
             {
                 System.out.println("invalid input");
             }
