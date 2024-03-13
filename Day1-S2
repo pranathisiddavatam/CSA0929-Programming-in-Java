@@ -1,0 +1,27 @@
+class S2 {
+    public static void main(String[] args) {
+        int intValue = 100;
+        long longValue = intValue;
+        float floatValue = longValue;
+        double doubleValue = floatValue;
+        System.out.println("Implicit Conversion (Widening):");
+        System.out.println("Int Value: " + intValue);
+        System.out.println("Long Value: " + longValue);
+        System.out.println("Float Value: " + floatValue);
+        System.out.println("Double Value: " + doubleValue);
+        double doubleVal = 12345.678;
+        float floatVal = (float) doubleVal;
+        long longVal = (long) floatVal;
+        int intVal = (int) longVal;
+        System.out.println("\nExplicit Conversion (Narrowing):");
+        System.out.println("Double Value: " + doubleVal);
+        System.out.println("Float Value: " + floatVal);
+        System.out.println("Long Value: " + longVal);
+        System.out.println("Int Value: " + intVal);
+        int overflowInt = Integer.MAX_VALUE + 1;
+        byte underflowByte = (byte) 128;
+        System.out.println("\nOverflow and Underflow Scenarios:");
+        System.out.println("Overflow Int Value: " + overflowInt);
+        System.out.println("Underflow Byte Value: " + underflowByte);
+    }
+}
