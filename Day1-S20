@@ -1,0 +1,23 @@
+ class S20 {
+    public static void main(String[] args) {
+        int[] A = {3, 6, 9, 12, 10};
+        int[] B = {1, 15, 10, 5};
+        int lengthA = A.length;
+        int lengthB = B.length;
+        if (lengthA > lengthB) {
+            System.out.println("Shifting A from left to right:");
+            for (int i = 0; i < lengthA; i++) {
+                if (i < lengthA - lengthB) {
+                    System.out.print("0 ");
+                } else {
+                    System.out.print(A[i - (lengthA - lengthB)] + " ");
+                }
+            }
+        } else {
+            System.out.println("Shifting B from right to left:");
+            for (int i = lengthB - lengthA; i < lengthB; i++) {
+                System.out.print(B[i] + " ");
+            }
+        }
+    }
+}
