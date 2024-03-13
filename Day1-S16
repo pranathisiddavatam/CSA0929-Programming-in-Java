@@ -1,0 +1,23 @@
+class S16 {
+    public static void main(String[] args) {
+        int[] array1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        int[] array2 = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+        int medianMeetPoint = -1;
+        for (int i = 0; i < array1.length; i++) {
+            for (int j = 0; j < array2.length; j++) {
+                if (array1[i] == array2[j]) {
+                    medianMeetPoint = (i + j) / 2;
+                    break;
+                }
+            }
+            if (medianMeetPoint != -1) {
+                break;
+            }
+        }
+        if (medianMeetPoint != -1) {
+            System.out.println("Median meet point: " + medianMeetPoint);
+        } else {
+            System.out.println("Arrays do not meet.");
+        }
+    }
+}
