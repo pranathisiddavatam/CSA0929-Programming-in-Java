@@ -1,0 +1,14 @@
+class S11 {
+    public static void main(String[] args) {
+        int ageYoungerBrotherAt28 = 24;
+        int ageDifference = 28 - ageYoungerBrotherAt28;
+        int ageOlderBrotherAt5 = 5 + ageDifference;
+        int agePersonAt56 = 56 + ageDifference;
+        System.out.println("Age of the older brother when he was 5: " + ageOlderBrotherAt5);
+        System.out.println("Age of the person when the older brother is 56: " + agePersonAt56);
+        if (ageDifference > 3) {
+            int ageYoungerBrotherAt5 = ageYoungerBrotherAt28 + ageDifference - 28;
+            System.out.println("Age of the younger brother when the older brother was 5: " + ageYoungerBrotherAt5);
+        }
+    }
+}
