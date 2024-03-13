@@ -1,0 +1,35 @@
+class S18 {
+    public static void main(String[] args) {
+        int loop1Length = 10;
+        int loop2Length = 15;
+        int loop3Length = 18;
+        int shortestPath;
+        switch (getShortestPath(loop1Length, loop2Length, loop3Length)) {
+            case 1:
+                shortestPath = loop1Length;
+                System.out.println("Shortest path is Loop 1 with length " + shortestPath);
+                break;
+            case 2:
+                shortestPath = loop2Length;
+                System.out.println("Shortest path is Loop 2 with length " + shortestPath);
+                break;
+            case 3:
+                shortestPath = loop3Length;
+                System.out.println("Shortest path is Loop 3 with length " + shortestPath);
+                break;
+            default:
+                System.out.println("All paths are of equal length.");
+        }
+    }
+    public static int getShortestPath(int loop1Length, int loop2Length, int loop3Length) {
+        if (loop1Length < loop2Length && loop1Length < loop3Length) {
+            return 1;
+        } else if (loop2Length < loop1Length && loop2Length < loop3Length) {
+            return 2;
+        } else if (loop3Length < loop1Length && loop3Length < loop2Length) {
+            return 3;
+        } else {
+            return 0;
+        }
+    }
+}
