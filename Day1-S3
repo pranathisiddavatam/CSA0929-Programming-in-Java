@@ -1,0 +1,40 @@
+class S3{
+    public static void main(String[] args) {
+        // String constructors
+        String str1 = "Hello";
+        String str2 = new String();
+        char[] charArray = {'W', 'o', 'r', 'l', 'd'};
+        String str3 = new String(charArray);
+        byte[] byteArray = {72, 101, 108, 108, 111};
+        String str4 = new String(byteArray);
+        System.out.println("String Methods and Constructors Demo:");
+        System.out.println("str1: " + str1);
+        System.out.println("str2: " + str2);
+        System.out.println("str3: " + str3);
+        System.out.println("str4: " + str4);
+        System.out.println("\nString Length:");
+        System.out.println("Length of str1: " + str1.length());
+        System.out.println("\nString Concatenation:");
+        String concatStr = str1.concat(" World!");
+        System.out.println("Concatenated String: " + concatStr);
+        System.out.println("\nSubstring Extraction:");
+        String substring = concatStr.substring(6);
+        System.out.println("Substring: " + substring);
+        System.out.println("\nCharacter Extraction:");
+        char charAtIndex = concatStr.charAt(0);
+        System.out.println("Character at Index 0: " + charAtIndex);
+        System.out.println("\nString Comparison:");
+        String str5 = "Hello World!";
+        boolean isEqual = concatStr.equals(str5);
+        System.out.println("Are concatStr and str5 equal? " + isEqual);
+        System.out.println("\nString Modification:");
+        String modifiedStr = concatStr.replace('o', '0');
+        System.out.println("Modified String: " + modifiedStr);
+        System.out.println("\nString Splitting:");
+        String[] splitStr = str5.split(" ");
+        System.out.println("Split String:");
+        for (String s : splitStr) {
+            System.out.println(s);
+        }
+    }
+}
