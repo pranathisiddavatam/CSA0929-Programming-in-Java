@@ -1,0 +1,28 @@
+class S5 {
+    public static void main(String[] args) {
+        int[][] matrixA = new int[2][9];
+        int[][] matrixB = new int[2][9];
+        for (int i = 0; i < 9; i++) {
+            matrixA[0][i] = i + 1;
+            matrixA[1][i] = 9 - i;
+        }
+        for (int i = 0; i < 9; i++) {
+            matrixB[0][i] = 9 - i;
+            matrixB[1][i] = i + 1;
+        }
+        System.out.println("Matrix A:");
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 9; j++) {
+                System.out.print(matrixA[i][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println("\nMatrix B:");
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 9; j++) {
+                System.out.print(matrixB[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
