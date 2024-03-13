@@ -1,0 +1,72 @@
+import java.util.HashMap;
+import java.util.Map;
+class BankDatabase {
+    private Map<Integer, Double> accounts;
+    public BankDatabase() {
+        accounts = new HashMap<>();
+    }
+    public void deposit(int accountNumber, double amount) {
+        if (amount > 0) {
+            double balance = accounts.getOrDefault(accountNumber, 0.0);
+            balance += amount;
+            accounts.put(accountNumber, balance);
+            System.out.println("Deposited " + amount + " into account " + accountNumber);
+        } else {
+            System.out.println("Invalid amount for deposit.");
+        }
+    }
+    public void withdraw(int accountNumber, double amount) {
+        double balance = accounts.getOrDefault(accountNumber, 0.0);
+        if (amount > 0 && balance >= amount) {
+            balance -= amount;
+            accounts.put(accountNumber, balance);
+            System.out.println("Withdrawn " + amount + " from account " + accountNumber);
+        } else {
+            System.out.println("Invalid amount or insufficient balance for withdrawal.");
+        }
+    }
+    public double getBalance(int accountNumber) {
+        return accounts.getOrDefault(accountNumber, 0.0);
+    }
+}
+class Clock {
+    private int hours;
+    private int minutes;
+    private int seconds;
+    private boolean isAM;
+    public Clock(int hours, int minutes, int seconds) {
+        if (isValidTime(hours, minutes, seconds)) {
+            this.hours = hours;
+            this.minutes = minutes;
+            this.seconds = seconds;
+            this.isAM = true;
+        } else {
+            System.out.println("Invalid time.");
+        }
+    }
+    private boolean isValidTime(int hours, int minutes, int seconds) {
+        return (hours >= 0 && hours < 24 && minutes >= 0 && minutes < 60 && seconds >= 0 && seconds < 60);
+    }
+    public void setAM(boolean isAM) {
+        this.isAM = isAM;
+    }
+    public String getTime() {
+        String timeString = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        if (isAM) {
+            return timeString + " AM";
+        } else {
+            return timeString + " PM";
+        }
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        BankDatabase bankDatabase = new BankDatabase();
+        bankDatabase.deposit(123456, 1000);
+        bankDatabase.withdraw(123456, 500);
+        System.out.println("Balance in account 123456: " + bankDatabase.getBalance(123456));
+        Clock clock = new Clock(9, 30, 0);
+        clock.setAM(false);
+        System.out.println("Current time: " + clock.getTime());
+    }
+}
