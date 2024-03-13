@@ -1,0 +1,27 @@
+class S4 {
+    public static void main(String[] args) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("This ").append("is ").append("a ").append("StringBuilder ").append("example.");
+        System.out.println("StringBuilder Result: " + stringBuilder.toString());
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("This ").append("is ").append("a ").append("StringBuffer ").append("example.");
+        System.out.println("StringBuffer Result: " + stringBuffer.toString());
+        int iterations = 1000000;
+        long startTime;
+        long endTime;
+        startTime = System.currentTimeMillis();
+        StringBuilder stringBuilderPerformance = new StringBuilder();
+        for (int i = 0; i < iterations; i++) {
+            stringBuilderPerformance.append("Hello");
+        }
+        endTime = System.currentTimeMillis();
+        System.out.println("\nStringBuilder Time Taken: " + (endTime - startTime) + " milliseconds");
+        startTime = System.currentTimeMillis();
+        StringBuffer stringBufferPerformance = new StringBuffer();
+        for (int i = 0; i < iterations; i++) {
+            stringBufferPerformance.append("Hello");
+        }
+        endTime = System.currentTimeMillis();
+        System.out.println("StringBuffer Time Taken: " + (endTime - startTime) + " milliseconds");
+    }
+}
