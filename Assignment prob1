@@ -1,0 +1,23 @@
+import java.util.Scanner;
+class IncomeTaxCalculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the earning of the employee: ");
+        double earning = scanner.nextDouble();
+        double tax = calculateTax(earning);
+        System.out.println("Income tax is: " + tax);
+    }
+    public static double calculateTax(double earning) {
+        double tax = 0;
+        if (earning <= 50000) {
+            tax = 0;
+        } else if (earning <= 60000) {
+            tax = (earning - 50000) * 0.1;
+        } else if (earning <= 150000) {
+            tax = 10000 * 0.1 + (earning - 60000) * 0.2;
+        } else {
+            tax = 10000 * 0.1 + 90000 * 0.2 + (earning - 150000) * 0.3;
+        }
+        return tax;
+    }
+}
