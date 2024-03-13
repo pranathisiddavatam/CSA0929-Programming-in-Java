@@ -1,0 +1,16 @@
+class S19 {
+    public static boolean OR(boolean a, boolean b) {
+        return a || b;
+    }
+    public static boolean AND(boolean a, boolean b) {
+        return a && b;
+    }
+    public static void main(String[] args) {
+        boolean input1 = true;
+        boolean input2 = false;
+        boolean resultOR = OR(input1, input2);
+        System.out.println("Result of OR gate: " + resultOR);
+        boolean resultAND = AND(input1, input2);
+        System.out.println("Result of AND gate: " + resultAND);
+    }
+}
