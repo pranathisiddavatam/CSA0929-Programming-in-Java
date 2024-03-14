@@ -1,0 +1,34 @@
+import java.util.Scanner;
+class PrimeCompositeCounter {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int primeCount = 0;
+        int compositeCount = 0;
+        while (true) {
+            System.out.print("Enter a number (enter 0 to exit): ");
+            int number = scanner.nextInt();
+
+            if (number == 0) {
+                break;
+            }
+            if (isPrime(number)) {
+                primeCount++;
+            } else {
+                compositeCount++;
+            }
+        }
+        System.out.println("Total Prime Numbers: " + primeCount);
+        System.out.println("Total Composite Numbers: " + compositeCount);
+    }
+    public static boolean isPrime(int number) {
+        if (number <= 1) {
+            return false;
+        }
+        for (int i = 2; i <= Math.sqrt(number); i++) {
+            if (number % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
