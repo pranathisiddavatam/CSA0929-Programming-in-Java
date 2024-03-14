@@ -1,0 +1,31 @@
+class Pair<T, U> {
+    private T first;
+    private U second;
+    public Pair(T first, U second) {
+        this.first = first;
+        this.second = second;
+    }
+    public T getFirst() {
+        return first;
+    }
+    public U getSecond() {
+        return second;
+    }
+    public void setFirst(T first) {
+        this.first = first;
+    }
+    public void setSecond(U second) {
+        this.second = second;
+    }
+    public void displayPair() {
+        System.out.println("Pair: (" + first + ", " + second + ")");
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Pair<Integer, String> pair1 = new Pair<>(10, "Hello");
+        pair1.displayPair();
+        Pair<Double, Character> pair2 = new Pair<>(3.14, 'A');
+        pair2.displayPair();
+    }
+}
