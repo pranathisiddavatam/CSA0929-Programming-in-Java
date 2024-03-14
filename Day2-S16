@@ -1,0 +1,33 @@
+class IntWrapper {
+    private int value;
+    public IntWrapper(int value) {
+        this.value = value;
+    }
+    public int getValue() {
+        return value;
+    }
+    public void setValue(int value) {
+        this.value = value;
+    }
+}
+class RestrictedGeneric<T extends IntWrapper> {
+    private T data;
+    public RestrictedGeneric(T data) {
+        this.data = data;
+    }
+    public T getData() {
+        return data;
+    }
+    public void setData(T data) {
+        this.data = data;
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        IntWrapper intWrapper = new IntWrapper(10);
+        RestrictedGeneric<IntWrapper> restrictedGeneric = new RestrictedGeneric<>(intWrapper);
+        System.out.println("Data: " + restrictedGeneric.getData().getValue());
+        restrictedGeneric.getData().setValue(20);
+        System.out.println("Modified Data: " + restrictedGeneric.getData().getValue());
+    }
+}
