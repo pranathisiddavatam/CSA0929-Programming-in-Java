@@ -1,0 +1,23 @@
+class MyClass {
+    int num;
+    MyClass() {
+        this(10);
+    }
+    MyClass(int num) {
+        this.num = num;
+    }
+    void display(MyClass obj) {
+        System.out.println("Value of num: " + obj.num);
+    }
+    MyClass getObject() {
+        return this;
+    }
+}
+class ThisKeywordExample {
+    public static void main(String[] args) {
+        MyClass obj1 = new MyClass();
+        obj1.display(obj1);
+        MyClass obj2 = obj1.getObject();
+        System.out.println("Value of num in obj2: " + obj2.num);
+    }
+}
