@@ -1,0 +1,39 @@
+interface Summable {
+    double sum(double[] numbers);
+}
+interface Averagable {
+    double avg(double[] numbers);
+}
+interface PercentageCalculatable {
+    double percentage(double obtained, double total);
+}
+class MathOperations implements Summable, Averagable, PercentageCalculatable {
+    @Override
+    public double sum(double[] numbers) {
+        double total = 0;
+        for (double num : numbers) {
+            total += num;
+        }
+        return total;
+    }
+    @Override
+    public double avg(double[] numbers) {
+        double sum = sum(numbers);
+        return sum / numbers.length;
+    }
+    @Override
+    public double percentage(double obtained, double total) {
+        return (obtained / total) * 100;
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        MathOperations math = new MathOperations();
+        double[] marks = {85, 90, 75, 80, 95};
+        double totalMarks = 500;
+        double obtainedMarks = math.sum(marks);
+        System.out.println("Total marks: " + math.sum(marks));
+        System.out.println("Average marks: " + math.avg(marks));
+        System.out.println("Percentage obtained: " + math.percentage(obtainedMarks, totalMarks) + "%");
+    }
+}
