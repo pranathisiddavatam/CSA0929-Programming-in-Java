@@ -1,0 +1,19 @@
+class MyClass {
+    final int finalVariable = 10;
+    final void finalMethod() {
+        System.out.println("This is a final method.");
+    }
+}
+final class FinalClass extends MyClass {
+    void display() {
+        System.out.println("This is a method in the FinalClass.");
+    }
+}
+class FinalExamples {
+    public static void main(String[] args) {
+        FinalClass finalObj = new FinalClass();
+        System.out.println("Value of finalVariable: " + finalObj.finalVariable);
+        finalObj.finalMethod();
+        finalObj.display();
+    }
+}
