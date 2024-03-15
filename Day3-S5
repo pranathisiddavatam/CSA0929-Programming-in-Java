@@ -1,0 +1,26 @@
+import java.util.Scanner;
+class CustomExceptionExample {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        try {
+            System.out.print("Enter a positive number: ");
+            int number = scanner.nextInt();
+
+            if (number < 0) {
+                throw new NegativeValueException();
+            }
+            System.out.println("Number entered: " + number);
+        } catch (NegativeValueException e) {
+            System.out.println("Error: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error: Invalid input.");
+        } finally {
+            scanner.close();
+        }
+    }
+}
+class NegativeValueException extends Exception {
+    public NegativeValueException() {
+        super("Negative values are not allowed.");
+    }
+}
