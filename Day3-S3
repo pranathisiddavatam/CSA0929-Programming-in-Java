@@ -1,0 +1,24 @@
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+class D3S3 {
+    public static void main(String[] args) {
+        try {
+            String nonNumericString = "abc";
+            int parsedInt = Integer.parseInt(nonNumericString);
+            String userInput = "123abc";
+            int inputInt = Integer.parseInt(userInput);
+            String decimalString = "12,34";
+            DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
+            double formattedDouble = decimalFormat.parse(decimalString).doubleValue();
+            DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+            symbols.setDecimalSeparator(',');
+            DecimalFormat incorrectFormat = new DecimalFormat("#,##0.00", symbols);
+            double incorrectDouble = incorrectFormat.parse("12.34").doubleValue();
+        } catch (NumberFormatException e) {
+            System.out.println("Number Format Exception occurred: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Exception occurred: " + e.getMessage());
+        }
+    }
+}
