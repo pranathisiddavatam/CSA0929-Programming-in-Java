@@ -1,0 +1,150 @@
+class MatrixAdditionExample {
+    public static void main(String[] args) throws InterruptedException {
+        Matrix matrix1 = new Matrix(3, 3);
+        Matrix matrix2 = new Matrix(3, 3);
+
+        ThreadOne t1 = new ThreadOne(matrix1);
+        ThreadTwo t2 = new ThreadTwo(matrix2);
+        ThreadThree t3 = new ThreadThree(matrix1, matrix2);
+        ThreadFour t4 = new ThreadFour(matrix1, matrix2, t3);
+
+        t1.start();
+        t2.start();
+        t4.start();
+        t3.start();
+
+        t1.join();
+        t2.join();
+        t4.join();
+        t3.join();
+
+        System.out.println("Matrix 1:");
+        matrix1.printMatrix();
+        System.out.println("Matrix 2:");
+        matrix2.printMatrix();
+        System.out.println("Matrix Sum:");
+        t3.getResultMatrix().printMatrix();
+    }
+}
+
+class Matrix {
+    private final int rows;
+    private final int cols;
+    private final int[][] data;
+
+    public Matrix(int rows, int cols) {
+        this.rows = rows;
+        this.cols = cols;
+        this.data = new int[rows][cols];
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    public int getCols() {
+        return cols;
+    }
+
+    public int getElement(int row, int col) {
+        return data[row][col];
+    }
+
+    public void setElement(int row, int col, int value) {
+        data[row][col] = value;
+    }
+
+    public void printMatrix() {
+        for (int[] row : data) {
+            for (int element : row) {
+                System.out.print(element + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+
+class ThreadOne extends Thread {
+    private final Matrix matrix;
+
+    public ThreadOne(Matrix matrix) {
+        this.matrix = matrix;
+    }
+
+    @Override
+    public void run() {
+        for (int i = 0; i < matrix.getRows(); i++) {
+            for (int j = 0; j < matrix.getCols(); j++) {
+                matrix.setElement(i, j, i + j);
+            }
+        }
+    }
+}
+
+class ThreadTwo extends Thread {
+    private final Matrix matrix;
+
+    public ThreadTwo(Matrix matrix) {
+        this.matrix = matrix;
+    }
+
+    @Override
+    public void run() {
+        for (int i = 0; i < matrix.getRows(); i++) {
+            for (int j = 0; j < matrix.getCols(); j++) {
+                matrix.setElement(i, j, i * j);
+            }
+        }
+    }
+}
+
+class ThreadThree extends Thread {
+    private final Matrix matrix1;
+    private final Matrix matrix2;
+    private Matrix resultMatrix;
+
+    public ThreadThree(Matrix matrix1, Matrix matrix2) {
+        this.matrix1 = matrix1;
+        this.matrix2 = matrix2;
+    }
+
+    @Override
+    public void run() {
+        synchronized (matrix1) {
+            synchronized (matrix2) {
+                resultMatrix = new Matrix(matrix1.getRows(), matrix1.getCols());
+                for (int i = 0; i < matrix1.getRows(); i++) {
+                    for (int j = 0; j < matrix1.getCols(); j++) {
+                        resultMatrix.setElement(i, j, matrix1.getElement(i, j) + matrix2.getElement(i, j));
+                    }
+                }
+            }
+        }
+    }
+
+    public Matrix getResultMatrix() {
+        return resultMatrix;
+    }
+}
+
+class ThreadFour extends Thread {
+    private final Matrix matrix1;
+    private final Matrix matrix2;
+    private final ThreadThree t3;
+
+    public ThreadFour(Matrix matrix1, Matrix matrix2, ThreadThree t3) {
+        this.matrix1 = matrix1;
+        this.matrix2 = matrix2;
+        this.t3 = t3;
+    }
+
+    @Override
+    public void run() {
+        // Simulating the count of elements
+        try {
+            Thread.sleep(2000); // Sleep for 2 seconds
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
