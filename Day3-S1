@@ -1,0 +1,25 @@
+import java.lang.Math;
+class D3S1 {
+    public static void main(String[] args) {
+        try {
+            int result = 10 / 0;
+        } catch (ArithmeticException e) {
+            System.out.println("Caught ArithmeticException: Division by Zero");
+        }
+        try {
+            double logResult = Math.log(0);
+        } catch (ArithmeticException e) {
+            System.out.println("Caught ArithmeticException: Logarithm of Zero");
+        }
+        try {
+            double tanResult = Math.tan(Math.toRadians(90));
+        } catch (ArithmeticException e) {
+            System.out.println("Caught ArithmeticException: Tan 90 Degree");
+        }
+        try {
+            double powerResult = Math.pow(0, 0);
+        } catch (ArithmeticException e) {
+            System.out.println("Caught ArithmeticException: Zero power Zero");
+        }
+    }
+}
