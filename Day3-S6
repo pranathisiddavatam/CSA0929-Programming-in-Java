@@ -1,0 +1,37 @@
+import java.util.Scanner;
+class CustomExceptionExample {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        try {
+            System.out.print("Enter a decimal number: ");
+            String input = scanner.nextLine();
+
+            if (!isValidDecimal(input)) {
+                throw new InvalidDecimalException();
+            }
+            double number = Double.parseDouble(input);
+            System.out.println("Number entered: " + number);
+        } catch (InvalidDecimalException e) {
+            System.out.println("Error: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Invalid decimal number format.");
+        } catch (Exception e) {
+            System.out.println("Error: Invalid input.");
+        } finally {
+            scanner.close();
+        }
+    }
+    public static boolean isValidDecimal(String input) {
+        try {
+            Double.parseDouble(input);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+}
+class InvalidDecimalException extends Exception {
+    public InvalidDecimalException() {
+        super("Invalid decimal number format.");
+    }
+}
