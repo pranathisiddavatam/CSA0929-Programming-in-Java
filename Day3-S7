@@ -1,0 +1,41 @@
+import java.util.Scanner;
+class CustomExceptionExample {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.print("Enter an integer: ");
+            String input = scanner.nextLine();
+
+            if (!isValidInteger(input)) {
+                throw new NonIntegerValueException();
+            }
+
+            int number = Integer.parseInt(input);
+            System.out.println("Number entered: " + number);
+        } catch (NonIntegerValueException e) {
+            System.out.println("Error: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Invalid integer format.");
+        } catch (Exception e) {
+            System.out.println("Error: Invalid input.");
+        } finally {
+            scanner.close();
+        }
+    }
+
+    public static boolean isValidInteger(String input) {
+        try {
+            Integer.parseInt(input);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+}
+
+class NonIntegerValueException extends Exception {
+    public NonIntegerValueException() {
+        super("Non-integer value entered.");
+    }
+}
