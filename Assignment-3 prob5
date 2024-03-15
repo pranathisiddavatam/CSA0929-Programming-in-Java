@@ -1,0 +1,56 @@
+public class Customer {
+    private int accountNo;
+    private String accName;
+    private int balance;
+
+    public Customer(int accountNo, String accName, int balance) {
+        this.accountNo = accountNo;
+        this.accName = accName;
+        this.balance = balance;
+    }
+
+    public synchronized void deposit(int amount) {
+        System.out.println("Depositing amount: " + amount);
+        balance += amount;
+        System.out.println("New balance after deposit: " + balance);
+        notify(); // Notify waiting threads
+    }
+
+    public synchronized void withdraw(int amount) {
+        System.out.println("Withdrawing amount: " + amount);
+        if (amount > balance) {
+            System.out.println("Insufficient balance. Waiting for deposit.");
+            try {
+                wait(); // Wait for deposit to increase balance
+            } catch (InterruptedException e) {
+                System.out.println("Thread interrupted while waiting for deposit.");
+                return;
+            }
+        }
+        balance -= amount;
+        System.out.println("Withdraw operation success. Remaining balance: " + balance);
+    }
+
+    public static void main(String[] args) {
+        Customer customer = new Customer(12345, "John Doe", 10000);
+
+        // First withdraw attempt
+        Thread withdrawThread1 = new Thread(() -> customer.withdraw(12000));
+        withdrawThread1.start();
+
+        // Deposit to increase balance
+        Thread depositThread = new Thread(() -> customer.deposit(3000));
+        depositThread.start();
+
+        try {
+            withdrawThread1.join();
+            depositThread.join();
+        } catch (InterruptedException e) {
+            System.out.println("Main thread interrupted.");
+        }
+
+        // Second withdraw attempt after deposit
+        Thread withdrawThread2 = new Thread(() -> customer.withdraw(12000));
+        withdrawThread2.start();
+    }
+}
