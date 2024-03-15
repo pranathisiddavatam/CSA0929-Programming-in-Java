@@ -1,0 +1,63 @@
+class Main {
+    public static void main(String[] args) {
+        // Creating and starting T1 for Armstrong numbers
+        ArmstrongThread t1 = new ArmstrongThread();
+        t1.start();
+
+        // Creating and starting T2 for Fibonacci series
+        FibonacciThread t2 = new FibonacciThread();
+        t2.start();
+    }
+}
+
+class ArmstrongThread extends Thread {
+    @Override
+    public void run() {
+        System.out.println("Thread T1 for Armstrong numbers started.");
+        try {
+            for (int i = 100; i <= 999; i++) {
+                if (isArmstrong(i)) {
+                    System.out.println(i + " is an Armstrong number.");
+                }
+                Thread.sleep(100); // Simulating some work
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Thread T1 interrupted.");
+        }
+        System.out.println("Thread T1 for Armstrong numbers exiting.");
+    }
+
+    private boolean isArmstrong(int num) {
+        int originalNum, remainder, result = 0;
+        originalNum = num;
+
+        while (originalNum != 0) {
+            remainder = originalNum % 10;
+            result += Math.pow(remainder, 3);
+            originalNum /= 10;
+        }
+
+        return result == num;
+    }
+}
+
+class FibonacciThread extends Thread {
+    @Override
+    public void run() {
+        System.out.println("Thread T2 for Fibonacci series started.");
+        try {
+            int n = 10; // Number of Fibonacci numbers to generate
+            int a = 0, b = 1, c;
+            for (int i = 0; i < n; i++) {
+                System.out.print(a + " ");
+                c = a + b;
+                a = b;
+                b = c;
+                Thread.sleep(200); // Simulating some work
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Thread T2 interrupted.");
+        }
+        System.out.println("\nThread T2 for Fibonacci series exiting.");
+    }
+}
