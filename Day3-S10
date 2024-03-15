@@ -1,0 +1,64 @@
+class ThreadTimeComparison {
+    public static void main(String[] args) {
+        Thread t1 = new Thread(new MyRunnable("Thread 1"));
+        Thread t2 = new Thread(new MyRunnable("Thread 2"));
+
+        t1.start();
+        t2.start();
+
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        long t1Time = MyRunnable.getExecutionTime("Thread 1");
+        long t2Time = MyRunnable.getExecutionTime("Thread 2");
+
+        if (t1Time > t2Time) {
+            System.out.println("Thread 1 has longer waiting and sleeping time.");
+        } else if (t1Time < t2Time) {
+            System.out.println("Thread 2 has longer waiting and sleeping time.");
+        } else {
+            System.out.println("Both threads have equal waiting and sleeping time.");
+        }
+    }
+}
+
+class MyRunnable implements Runnable {
+    private String threadName;
+    private static final long NANO_TO_MILLI = 1000000;
+
+    private static final ThreadLocal<Long> startTime = ThreadLocal.withInitial(() -> 0L);
+
+    MyRunnable(String name) {
+        this.threadName = name;
+    }
+
+    @Override
+    public void run() {
+        startTime.set(System.nanoTime());
+
+        try {
+            Thread.sleep(1000); // Sleeping for 1 second
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        long endTime = System.nanoTime();
+        long executionTime = (endTime - startTime.get()) / NANO_TO_MILLI;
+
+        System.out.println(threadName + " execution time: " + executionTime + " ms");
+    }
+
+    public static long getExecutionTime(String threadName) {
+        if ("Thread 1".equals(threadName)) {
+            return startTime.get() == 0 ? 0 : (System.nanoTime() - startTime.get()) / NANO_TO_MILLI;
+        } else if ("Thread 2".equals(threadName)) {
+            return startTime.get() == 0 ? 0 : (System.nanoTime() - startTime.get()) / NANO_TO_MILLI;
+        } else {
+            return 0;
+        }
+    }
+}
