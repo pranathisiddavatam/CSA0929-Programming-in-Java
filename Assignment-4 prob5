@@ -1,0 +1,64 @@
+class MultiplicationTable implements Runnable {
+    private int number;
+
+    public MultiplicationTable(int number) {
+        this.number = number;
+    }
+
+    @Override
+    public void run() {
+        System.out.println(Thread.currentThread().getName() + " is in NEW state.");
+
+        // Start the thread
+        Thread.yield();
+
+        System.out.println(Thread.currentThread().getName() + " is in RUNNABLE state.");
+
+        // Generate and display multiplication table
+        System.out.println("Multiplication table for " + number + ":");
+        for (int i = 1; i <= 10; i++) {
+            System.out.println(number + " * " + i + " = " + (number * i));
+        }
+
+        // Demonstrate BLOCKED state
+        synchronized (this) {
+            System.out.println(Thread.currentThread().getName() + " is in BLOCKED state.");
+            try {
+                wait(1000); // Thread is in TIMED_WAITING state
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Demonstrate WAITING state
+        synchronized (this) {
+            System.out.println(Thread.currentThread().getName() + " is in WAITING state.");
+            try {
+                wait(); // Thread is in WAITING state
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        MultiplicationTable table5 = new MultiplicationTable(5);
+        MultiplicationTable table10 = new MultiplicationTable(10);
+
+        Thread thread5 = new Thread(table5, "Thread-5");
+        Thread thread10 = new Thread(table10, "Thread-10");
+
+        // Start the threads
+        thread5.start(); // Thread is in NEW state
+        thread10.start(); // Thread is in NEW state
+
+        // Demonstrate TERMINATED state
+        try {
+            thread5.join();
+            thread10.join();
+            System.out.println(Thread.currentThread().getName() + " is in TERMINATED state.");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
