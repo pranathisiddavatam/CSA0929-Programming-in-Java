@@ -1,0 +1,24 @@
+import java.util.Scanner;
+
+class MultiplicationTable {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the number for multiplication table: ");
+        int m = scanner.nextInt();
+
+        System.out.print("Enter the limit (n): ");
+        int n = scanner.nextInt();
+
+        printMultiplicationTable(m, n);
+
+        scanner.close();
+    }
+
+    public static void printMultiplicationTable(int m, int n) {
+        System.out.println("Multiplication table of " + m + " up to " + n + ":");
+        for (int i = 1; i <= n; i++) {
+            System.out.println(m + " * " + i + " = " + (m * i));
+        }
+    }
+}
