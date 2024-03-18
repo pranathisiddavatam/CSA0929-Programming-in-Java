@@ -1,0 +1,70 @@
+class MultiplicationTable implements Runnable {
+
+    private int number;
+
+    public MultiplicationTable(int number) {
+        this.number = number;
+    }
+
+    @Override
+    public void run() {
+        System.out.println(Thread.currentThread().getName() + " is in RUNNABLE state.");
+
+        // Display multiplication table
+        for (int i = 1; i <= 10; i++) {
+            System.out.println(number + " * " + i + " = " + (number * i));
+        }
+
+        // Demonstrate various stages of the thread lifecycle
+        try {
+            Thread.sleep(1000); // Thread is in TIMED_WAITING state
+            System.out.println(Thread.currentThread().getName() + " is in TIMED_WAITING state.");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        synchronized (this) {
+            try {
+                wait(); // Thread is in WAITING state
+                System.out.println(Thread.currentThread().getName() + " is in WAITING state.");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        MultiplicationTable table5 = new MultiplicationTable(5);
+        MultiplicationTable table10 = new MultiplicationTable(10);
+
+        Thread thread5 = new Thread(table5, "Thread-5");
+        Thread thread10 = new Thread(table10, "Thread-10");
+
+        // Start the threads
+        thread5.start(); // Thread is in NEW state
+        thread10.start(); // Thread is in NEW state
+
+        // Demonstrate BLOCKED state
+        synchronized (table5) {
+            try {
+                Thread.sleep(1000);
+                System.out.println("Main thread is in BLOCKED state.");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        synchronized (table5) {
+            table5.notify(); // Thread is resumed from WAITING state
+        }
+
+        // Demonstrate TERMINATED state
+        try {
+            thread5.join();
+            thread10.join();
+            System.out.println(Thread.currentThread().getName() + " is in TERMINATED state.");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
