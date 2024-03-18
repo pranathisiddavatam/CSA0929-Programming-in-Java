@@ -1,0 +1,31 @@
+class FibonacciGenerator implements Runnable {
+    private int n;
+
+    public FibonacciGenerator(int n) {
+        this.n = n;
+    }
+
+    @Override
+    public void run() {
+        int a = 0, b = 1;
+        System.out.println("Fibonacci series up to " + n + " terms:");
+        for (int i = 0; i < n; i++) {
+            System.out.print(a + " ");
+            int sum = a + b;
+            a = b;
+            b = sum;
+            try {
+                Thread.sleep(1000); // Adding a delay for better visualization
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        int numTerms = 10; // Number of terms in the Fibonacci series
+        FibonacciGenerator fibonacciGenerator = new FibonacciGenerator(numTerms);
+        Thread thread = new Thread(fibonacciGenerator);
+        thread.start();
+    }
+}
