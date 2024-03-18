@@ -1,0 +1,23 @@
+class LastWordLength {
+    public static int lengthOfLastWord(String s) {
+        // Trim trailing spaces
+        s = s.trim();
+
+        int length = 0;
+        int lastIndex = s.length() - 1;
+
+        // Iterate from the end of the string
+        while (lastIndex >= 0 && s.charAt(lastIndex) != ' ') {
+            length++;
+            lastIndex--;
+        }
+
+        return length;
+    }
+
+    public static void main(String[] args) {
+        String s = "Hello World";
+        int length = lengthOfLastWord(s);
+        System.out.println("Length of last word: " + length);
+    }
+}
