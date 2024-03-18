@@ -1,0 +1,30 @@
+class PerfectNumbers {
+    public static boolean isPerfect(int num) {
+        int sum = 1;
+        for (int i = 2; i * i <= num; i++) {
+            if (num % i == 0) {
+                sum += i;
+                if (i != num / i) {
+                    sum += num / i;
+                }
+            }
+        }
+        return sum == num;
+    }
+    public static void printPerfectNumbers(int n) {
+        int count = 0;
+        int num = 2;
+        System.out.println("First " + n + " perfect numbers:");
+        while (count < n) {
+            if (isPerfect(num)) {
+                System.out.println(num);
+                count++;
+            }
+            num++;
+        }
+    }
+    public static void main(String[] args) {
+        int n = 5;
+        printPerfectNumbers(n);
+    }
+}
